@@ -36,7 +36,7 @@ a.active p{
 }
 @media (max-width: 640px) {
     a.active{
-        background-color: black;
+        background-color: blac;
         color: white;
     }
 }

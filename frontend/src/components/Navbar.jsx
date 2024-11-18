@@ -8,6 +8,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import SearchIcon from '@mui/icons-material/Search'
 import MenuIcon from '@mui/icons-material/Menu'
+import { MdClose } from "react-icons/md";
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 
 function Navbar() {
@@ -95,43 +96,41 @@ function Navbar() {
 
               {/* Mobile Navigation Links */}
               <ul className="flex flex-col gap-4">
-                <li className="relative group text-white">
-                  <a href="#" className="hover:text-orange-500">Products</a>
+              <NavLink to='/' className="flex flex-col items-center gap-1"
+              onClick={() => setShowMenu(false)}>
+            <p>HOME</p>
+            <hr className='w-2/4 border-none h-[1.5px]  hidden'/>
+        </NavLink>
 
-                  {/* Dropdown Menu */}
-                  <ul className="absolute hidden group-hover:block bg-gray-900 shadow-lg rounded-lg p-4 ml-[80px] space-y-4 w-48 z-10">
-                    {/* <li>
-                      <a href="/products/1" className="hover:text-orange-500 block">Product 1</a>
-                    </li> */}
-                    <li>
-                      <a href="/products/2" className="hover:text-orange-500 block">StorePro desktop</a>
-                    </li>
-                    <li>
-                      <a href="/products/3" className="hover:text-orange-500 block">StorePro web</a>
-                    </li>
-                  </ul>
-                </li>
-                <li className="text-base font-normal text-white tracking-wide cursor-pointer hover:text-orange-500 duration-300">
-                  <a href="#about">About</a>
-                </li>
-                <li className="text-base font-normal text-white tracking-wide cursor-pointer hover:text-orange-500 duration-300">
-                  <a href="#services">Blog</a>
-                </li>
-                <li className="text-base font-normal text-white tracking-wide cursor-pointer hover:text-orange-500 duration-300">
-                  <a href="#contact">Contact</a>
-                </li>
+        <NavLink to='/collection' className="flex flex-col items-center gap-1" 
+        onClick={() => setShowMenu(false)}>
+            <p>COLLECTION</p>
+            <hr className='w-2/4 border-none h-[1.5px]  hidden'/>
+        </NavLink>
+
+        <NavLink to='/about' className="flex flex-col items-center gap-1"
+        onClick={() => setShowMenu(false)}>
+            <p>ABOUT</p>
+            <hr className='w-2/4 border-none h-[1.5px]  hidden'/>
+        </NavLink>
+        <NavLink to='/contact' className="flex flex-col items-center gap-1"
+        onClick={() => setShowMenu(false)}>
+            <p>CONTACT</p>
+            <hr className='w-2/4 border-none h-[1.5px]  hidden'/>
+        </NavLink>
               </ul>
 
-              <div className='flex gap-2'>
+              <div className='flex gap-2 justify-center'>
                 
-                <button className="bg-orange-200 px-6 py-3 md:hidden block rounded-[30px]">Sign In</button>
+                <button className="bg-orange-500 px-6 py-3 md:hidden block rounded-[30px]">Sign In</button>
               </div>
 
               {/* Social Media Links */}
-              <div>
-                <div className='flex justify-between'>
+             
+                <div className='flex justify-center'>
                   <h2 className="text-base font-titleFont mb-4 text-white">Connect with us on</h2>
                 </div>
+                <div className='flex justify-center'>
                 <span className="mediaIcon"><FaFacebookF /></span>
                 <span className="mediaIcon"><FaTwitter /></span>
                 <span className="mediaIcon"><FaLinkedinIn /></span>
@@ -143,7 +142,7 @@ function Navbar() {
                 onClick={() => setShowMenu(false)}
                 className="absolute top-4 right-4 text-gray-400 hover:text-purple-500 duration-300 text-2xl cursor-pointer"
               >
-                {/* <MdClose /> */}
+                <MdClose />
               </span>
             </div>
           </div>
