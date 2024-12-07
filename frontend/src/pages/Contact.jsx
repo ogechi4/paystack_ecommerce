@@ -4,6 +4,11 @@ import { assets } from '../assets/assets'
 import NewsletterBox from '../components/NewsletterBox'
 import { FaFacebookF, FaInstagram, FaWhatsapp, FaReact } from "react-icons/fa";
 
+ // WhatsApp message with product details
+ const whatsappMessage = `Hello, I'm interested in purchasing a product . Could you please confirm the availability?`;
+
+ const whatsappLink = `https://wa.me/2349013213160?text=${encodeURIComponent(whatsappMessage)}`;
+
 function Contact() {
     return (
         <div>
@@ -25,9 +30,16 @@ function Contact() {
             <span className="mediaIcon">
              <FaFacebookF />
             </span>
-            <span className="mediaIcon">
-              <FaWhatsapp />
-            </span>
+            <a
+        href={whatsappLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="whatsapp-button "
+      >
+        <span className="mediaIcon">
+          <FaWhatsapp />
+        </span>
+      </a>
           </div>
               </div>
         </div>

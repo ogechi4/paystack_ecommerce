@@ -197,4 +197,83 @@ const adminLogin = async (req, res) => {
     }
 };
 
-export { loginUser, registerUser, verifyUser, adminLogin };
+// FORGOT PASSWORD
+const requestPasswordReset = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return res.json({ success: false, message: "User not found" });
+    }
+
+    // Generate reset token
+    const resetToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    // Save token and expiry
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+    await user.save();
+
+    // Send email
+    const resetLink = `${process.env.FRONTEND_URL}/resetPassword/${resetToken}`;
+    const mailOptions = {
+      from: process.env.SERVER_EMAIL_USER,
+      to: email,
+      subject: "Password Reset Request",
+      html: `<p>Click <a href="${resetLink}">here</a> to reset your password. This link is valid for 1 hour.</p>`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.json({ success: true, message: "Password reset link sent to your email." });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+// ENDPOINT TO RESET PASSWORD
+
+const resetPassword = async (req, res) => {
+  const { token } = req.params; 
+  const { newPassword } = req.body;
+
+  console.log("Token:", token); // Check if the token is being received
+  console.log("New Password:", newPassword);
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await userModel.findOne({
+      _id: decoded.id,
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.json({ success: false, message: "Invalid or expired token" });
+    }
+
+    // Hash the new password
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(newPassword, salt);
+
+    // Update the user's password
+    user.password = hashPassword;
+    user.resetPasswordToken = undefined; // THIS IS TO  Clear token
+    user.resetPasswordExpires = undefined; // THIS IS TO Clear expiry
+    await user.save();
+
+    res.json({ success: true, message: "Password has been reset successfully." });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+
+
+export { loginUser, registerUser, verifyUser, adminLogin,requestPasswordReset,resetPassword };

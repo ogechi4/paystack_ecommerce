@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { Link } from 'react-router-dom'
 
 function Login() {
     const [currentState, setCurrentState] = useState('Login')
@@ -60,7 +61,10 @@ function Login() {
             <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" className='w-full px-3 py-2 border border-gray-400' placeholder='Email' required />
             <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" className='w-full px-3 py-2 border border-gray-400' placeholder='Password' required />
             <div className='w-full flex justify-between text-sm mt-[-8px]'>
+                <Link to='/forgotPassword'>
                 <p className='cursor pointer'>Forgot Password?</p>
+                </Link>
+                
                 {
                     currentState === 'Login'
                         ? <p onClick={() => setCurrentState('Sign Up')} className='cursor-pointer'>Create account</p>

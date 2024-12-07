@@ -17,6 +17,9 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import Verify from './pages/Verify'
 import VerifyEmail from './pages/VerifyEmail'
+import ForgotPassword from './pages/Forgotpassword'
+import Resetpassword from './pages/Resetpassword'
+
 
 
 function App() {
@@ -45,6 +48,8 @@ function App() {
           <Route path='/contact' element={<Contact />} />
           <Route path='/verify' element={<Verify />} />
           <Route path='/tokenVerify' element={<VerifyEmail />} />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
+          <Route path="/resetPassword/:token" element={<Resetpassword />} />
           
          </Routes>
          </div>
